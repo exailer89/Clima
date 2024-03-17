@@ -67,16 +67,35 @@ function consultarApi(ciudad, pais) {
 }
 
 function mostrarClima(datos) {
-    const {main: {temp, temp_max, temp_min}} = datos;
+    const {name, main: {temp, temp_max, temp_min}} = datos;
     const centigrados = kelvinACentigrados(temp);
+    const max = kelvinACentigrados(temp_max);
+    const min = kelvinACentigrados(temp_min);
 
+    // Crear Parrafos
     const actual = document.createElement('p');
     actual.innerHTML = `${centigrados} &#8451;`;
     actual.classList.add('font-bold', 'text-6xl');
 
+    const nombreCiudad = document.createElement('p');
+    nombreCiudad.textContent = `Clima en ${name}`;
+    nombreCiudad.classList.add('font-bold', 'text-2xl');
+
+    const tempMaxima = document.createElement('p');
+    tempMaxima.innerHTML = `Max: ${max} &#8451;`;
+    tempMaxima.classList.add('text-xl');
+
+    const tempMinima = document.createElement('p');
+    tempMinima.innerHTML = `Min: ${min} &#8451;`;
+    tempMinima.classList.add('text-xl');
+
+    // Insertar Parrafos
     const resultadoDiv = document.createElement('div');
     resultadoDiv.classList.add('text-center', 'text-white');
+    resultadoDiv.appendChild(nombreCiudad);
     resultadoDiv.appendChild(actual);
+    resultadoDiv.appendChild(tempMaxima);
+    resultadoDiv.appendChild(tempMinima);
 
     resultado.appendChild(resultadoDiv);
 }
